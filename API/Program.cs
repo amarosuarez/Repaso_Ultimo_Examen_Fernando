@@ -5,6 +5,13 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+/** Desactiva cors */
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
