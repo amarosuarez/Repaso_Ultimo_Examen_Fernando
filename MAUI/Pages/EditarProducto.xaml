@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.Pages.EditarProducto"
+             xmlns:vm="clr-namespace:MAUI.ViewModels"
+             Title="EditarProducto">
+    <ContentPage.BindingContext>
+        <vm:clsEditarProductoVM></vm:clsEditarProductoVM>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <VerticalStackLayout IsVisible="{Binding ShowError}">
+                <Label Text="{Binding Error}"></Label>
+                <Button
+            Text="Volver al listado"
+            Command="{Binding VolverCommand}"></Button>
+            </VerticalStackLayout>
+
+            <ScrollView IsVisible="{Binding ShowContent}">
+                <VerticalStackLayout Padding="20" Spacing="15">
+                    <!-- Campo Nombre -->
+                    <Label Text="Nombre" FontSize="18" />
+                    <Entry Placeholder="Introduce el nombre" Text="{Binding Producto.Nombre}" />
+
+                    <!-- Campo Precio -->
+                    <Label Text="Precio" FontSize="18" />
+                    <Entry Placeholder="Introduce el precio" Text="{Binding Producto.Precio}" />
+
+                    <!-- Campo Stock -->
+                    <Label Text="Stock" FontSize="18" />
+                    <Entry Placeholder="Introduce el stock" Text="{Binding Producto.Stock}" />
+
+
+                    <!-- Botón Guardar -->
+                    <Button 
+                Text="Guardar"
+                Command="{Binding EditarCommand}"
+                BackgroundColor="#4CAF50"
+                TextColor="White" />
+
+                    <!-- Botón Volver listado -->
+                    <Button 
+                Text="Volver al listado"
+                Command="{Binding VolverCommand}"
+                BackgroundColor="Purple"
+                TextColor="White" />
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

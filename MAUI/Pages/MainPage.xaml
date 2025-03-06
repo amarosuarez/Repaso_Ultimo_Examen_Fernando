@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUI.ViewModels"
+             x:Class="MAUI.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:clsListadoVM></vm:clsListadoVM>
+    </ContentPage.BindingContext>
+
+    <AbsoluteLayout>
+        <!-- Mensaje de error, se muestra si ShowError es true -->
+        <VerticalStackLayout IsVisible="{Binding ShowError}"
+                             HorizontalOptions="Center" 
+                             VerticalOptions="CenterAndExpand" 
+                             Spacing="10">
+            <Label Text="{Binding Error}"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" 
+                   FontSize="Large" />
+        </VerticalStackLayout>
+        
+        <ScrollView
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            AbsoluteLayout.LayoutFlags="All"
+            IsVisible="{Binding ShowContent}">
+            <VerticalStackLayout Spacing="5" Padding="4">
+                <ListView 
+                    ItemsSource="{Binding Productos}"
+                    SelectedItem="{Binding ProductoSeleccionado}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <VerticalStackLayout Padding="10">
+                                    <Label Text="{Binding Nombre}" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="{Binding Precio, StringFormat='Precio: {0:C}'}" />
+                                    <Label Text="{Binding Stock, StringFormat='Stock: {0}'}" />
+                                </VerticalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Botones superpuestos, se muestran si ShowContent es true -->
+        <Button Text="✏️"
+            Command="{Binding EditarCommand }"
+            BackgroundColor="Purple"
+            TextColor="White"
+            FontSize="Medium"
+            CornerRadius="25"
+            WidthRequest="50"
+            HeightRequest="50"
+            AbsoluteLayout.LayoutBounds="0.99, 0.89"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IsVisible="{Binding ShowContent}"/>
+
+        <Button Text="+" 
+            BackgroundColor="Green"
+            TextColor="White"
+            FontSize="Large"
+            Command="{Binding InsertarCommand}"
+            CornerRadius="25"
+            WidthRequest="50"
+            HeightRequest="50"
+            AbsoluteLayout.LayoutBounds="0.99, 0.99, 50, 50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IsVisible="{Binding ShowContent}"/>
+
+        <Button Text="-"
+            BackgroundColor="Red"
+            TextColor="White"
+            FontSize="Medium"
+            CornerRadius="25"
+            WidthRequest="50"
+            HeightRequest="50"
+            Command="{Binding BorrarCommand}"
+            AbsoluteLayout.LayoutBounds="0.99, 0.79, 50, 50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IsVisible="{Binding ShowContent}"/>
+    </AbsoluteLayout>
+
+</ContentPage>
